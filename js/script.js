@@ -17,6 +17,7 @@ function createDivCell(inner, difficulty){
     newDiv.innerHTML= inner;
     newDiv.classList.add(`cell-${difficulty}`)
     newDiv.classList.add("cell");
+    newDiv.setAttribute("id", `class-${inner}`);
     grid.append(newDiv);
 }
 
