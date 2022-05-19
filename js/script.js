@@ -19,8 +19,9 @@ function createDivCell(inner, difficulty){
     newDiv.classList.add("cell");
     newDiv.setAttribute("id", `class-${inner}`);
     grid.append(newDiv);
+    return newDiv;
 }
-
+let score = 0;
 easy.addEventListener("click", function(){
     //clearing grid
     grid.innerHTML="";
@@ -28,22 +29,76 @@ easy.addEventListener("click", function(){
     easy.classList.add("selected");
     normal.disabled = true;
     hard.disabled = true;
-    //create grid
-    for(i= 1; i < 101; i++){
-        createDivCell(i, "easy");
+    
+    
+    //generate bombs!
+    while (pcArray.length < 16) {
+        let numRandom = Math.floor(Math.random() * 100) + 1;
+        if (pcArray.includes(numRandom) == false){
+            pcArray.push(numRandom);
+        }
     }
-        
-
+    //create griD
+    for(i= 1; i < 101; i++){
+        let newCell = createDivCell(i, "easy");
+        // add class bomb to useful cells
+        if (pcArray.includes(i)){
+            newCell.classList.add("bomb");
+        } 
+        // if selected cell is bomb all bomb trigger and you can't click anything
+        if (newCell.classList.contains("bomb")){
+            newCell.addEventListener("click",
+            function(){
+                alert("BOOM you are dead!");
+                newCell.classList.add("bomb-on");
+                console.log(score);
+                alert("Il tuo punteggio è " + score);
+                
+            })
+        } else {
+                newCell.addEventListener("click", function(){
+                newCell.classList.add("selected");  
+                score ++; 
+            })
+        }
+    }
+    
 })
-
 normal.addEventListener("click", function(){
     grid.innerHTML="";
     easy.disabled = true;
     normal.classList.add("selected");
     hard.disabled = true;
-        //create grid
-        for(i= 1; i < 82; i++){
-        createDivCell(i, "normal");
+        //generate bombs!
+    while (pcArray.length < 16) {
+        let numRandom = Math.floor(Math.random() * 81) + 1;
+        if (pcArray.includes(numRandom) == false){
+            pcArray.push(numRandom);
+        }
+    }
+    //create griD
+    for(i= 1; i < 82; i++){
+        let newCell = createDivCell(i, "normal");
+        // add class bomb to useful cells
+        if (pcArray.includes(i)){
+            newCell.classList.add("bomb");
+        } 
+        // if selected cell is bomb all bomb trigger and you can't click anything
+        if (newCell.classList.contains("bomb")){
+            newCell.addEventListener("click",
+            function(){
+                alert("BOOM you are dead!");
+                newCell.classList.add("bomb-on");
+                console.log(score);
+                alert("Il tuo punteggio è " + score);
+                
+            })
+        } else {
+                newCell.addEventListener("click", function(){
+                newCell.classList.add("selected");  
+                score ++; 
+            })
+        }
     }
 
 })
@@ -54,18 +109,41 @@ hard.addEventListener("click", function(){
     easy.disabled = true;
     normal.disabled = true;
     hard.classList.add("selected");
-     //create grid
-     for(i= 1; i < 50; i++){
-        createDivCell(i, "hard");
+    //create grid
+    while (pcArray.length < 16) {
+        let numRandom = Math.floor(Math.random() * 49) + 1;
+        if (pcArray.includes(numRandom) == false){
+            pcArray.push(numRandom);
+        }
     }
+    //create griD
+    for(i= 1; i < 50; i++){
+        let newCell = createDivCell(i, "hard");
+        // add class bomb to useful cells
+        if (pcArray.includes(i)){
+            newCell.classList.add("bomb");
+        } 
+        // if selected cell is bomb all bomb trigger and you can't click anything
+        if (newCell.classList.contains("bomb")){
+            newCell.addEventListener("click",
+            function(){
+                alert("BOOM you are dead!");
+                newCell.classList.add("bomb-on");
+                console.log(score);
+                alert("Il tuo punteggio è " + score);
+                
+            })
+        } else {
+                newCell.addEventListener("click", function(){
+                newCell.classList.add("selected");  
+                score ++; 
+            })
+        }
+    }
+
 })
 
 
-// Get the parent DIV, add click listener...
-grid.addEventListener("click",function(e) {
-	// e.target was the clicked element
-  if (e.target && e.target.matches("div.cell")) {
-    console.log("clicked cell!");
-    e.target.classList.add("selected");
-	}
-});
+//okay il code è orribile, ripetitivo e lungo.
+// c'è di sicuro modo per snellirlo.
+// il mio cervello è mush ora. le consegne sono state effettuate. niente bonus stavolta..
